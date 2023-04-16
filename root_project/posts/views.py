@@ -1,16 +1,33 @@
-from django.http import HttpResponse
+from django.shortcuts import render
+from .models import Post
 
 
-def index():
-    html_content = '<html><head><title>Крутой блог</title></head><body>'
-    html_content += '<h1>Главная страница / все последние посты блога</h1>'
-    html_content += '</body></html>'
-    return HttpResponse(html_content)
+def index(request):
+    template = 'posts/index.html'
+    word = 'Слово циклом'
+    all_posts = Post.objects.all()
+    context = {
+        'all_posts': all_posts,
+        'word': word,
+    }
+    return render(request, template, context)
 
 
-def post_detail(pk):
-    return HttpResponse(f'Пост блога под номером: {pk}')
+def post_detail(request, pk):
+    template = 'posts/post_detail.html'
+    title = 'Страница поста под номером:'
+    context = {
+        'title': title,
+        'pk': pk,
+    }
+    return render(request, template, context)
 
 
-def group_posts(slug):
-    return HttpResponse(f'Все посты группы: {slug}')
+def group_posts(request, slug):
+    template = 'posts/group_posts.html'
+    title = 'Все посты группы'
+    context = {
+        'title': title,
+        'slug': slug,
+    }
+    return render(request, template, context)

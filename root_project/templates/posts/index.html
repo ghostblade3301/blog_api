@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title%}
+  Главная страница
+{% endblock title %}
+{% block content %}
+  <div>
+    <h1>Главная страница / все посты</h1>
+    {% for post in all_posts %}
+      <ul>
+        <li>
+          Автор: {{post.author}}
+        </li>
+        <li>
+          Дата публикации: {{ post.pub_date }}
+        </li>
+        <li>
+          Группа: {{ post.group.title }}
+        </li>
+      </ul>
+      <p>{{ post.text }}</p> 
+      <a href="">Все записи группы</a>
+      {% if not forloop.last %}
+        <hr>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endblock content %}

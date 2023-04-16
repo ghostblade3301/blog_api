@@ -13,9 +13,12 @@ class Group(models.Model):
     )
     description = models.TextField(max_length=150)
 
+    def __str__(self):
+        return self.title
+
 
 class Post(models.Model):
-    text = models.TextField(max_length=200)
+    text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True)
     group = models.ForeignKey(
         Group,
@@ -26,4 +29,8 @@ class Post(models.Model):
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        related_name='posts'
     )
+
+    class Meta:
+        ordering = ['-pub_date']
