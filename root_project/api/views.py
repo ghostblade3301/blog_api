@@ -1,3 +1,10 @@
-from django.shortcuts import render
+#  импортируйте в код всё необходимое
+from rest_framework import viewsets
 
-# Create your views here.
+from posts.models import Post
+from .serializers import PostSerializer
+
+
+class PostViewSet(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
